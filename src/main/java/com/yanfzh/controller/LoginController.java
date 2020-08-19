@@ -19,7 +19,7 @@ public class LoginController {
     public String login(@RequestParam("username") String username,
                         @RequestParam("password") String password,
                         Map<String,Object> map, HttpSession session){
-        if (!StringUtils.isEmpty(username) && "123456".equals(password)){
+        if (!StringUtils.isEmpty(username) && "1".equals(password)){
             //登录成功，防表单重复提交，重定向到主页
             session.setAttribute("loginUser",username);
             return "redirect:/main.html";
@@ -29,4 +29,11 @@ public class LoginController {
             return "login";
         }
     }
+
+    @GetMapping("/loginOut")
+    public String loginOut(HttpSession session){
+        session.invalidate();
+        return "login";
+    }
+
 }

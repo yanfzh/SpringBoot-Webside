@@ -23,13 +23,13 @@ public interface DepartmentMapper {
     public List<Department> allDept();
 
     @Select("delete from department where id=#{id}")
-    public int deleteDeptById(Integer id);
+    public Integer deleteDept(Integer id);
 
     @Select("insert into department(departmentName) values(#{departmentName})")
-    public int  insertDept(Department department);
+    public Integer  insertDept(Department department);
 
     @Select("update department set departmentName=#{departmentName} where id=#{id}")
-    public int updateDept(Department department);
+    public Integer updateDept(Department department);
 
 
 }
