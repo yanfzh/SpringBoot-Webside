@@ -16,11 +16,14 @@ public interface EmployeeMapper {
     @Select("select * from employee")
     public List<Employee> getAllEmployee();
 
-    @Insert("insert into employee(lastName,email,gender,Department,birth) values (#{lastName},#{email},#{gender},#{department},#{birth})")
-    public int insertEmp(Employee employee);
+    @Select("select * from employee where lastName like CONCAT('%',#{lastName},'%')")
+    public List<Employee> searchEmps(String lastName);
 
-    @Update("update employee set lastName=#{lastName},email=#{email},gender=#{gender},Department=#{department},birth=#{birth} where id=#{id}")
-    public int UpdateEmp(Employee employee);
+    @Insert("insert into employee(lastName,email,gender,Department,salary,birth) values (#{lastName},#{email},#{gender},#{department},#{salary},#{birth})")
+    public Integer insertEmp(Employee employee);
+
+    @Update("update employee set lastName=#{lastName},email=#{email},gender=#{gender},Department=#{department},salary=#{salary},birth=#{birth} where id=#{id}")
+    public Integer UpdateEmp(Employee employee);
 
     @Select("delete from employee where id=#{id}")
     public Integer deleteEmp(Integer id);

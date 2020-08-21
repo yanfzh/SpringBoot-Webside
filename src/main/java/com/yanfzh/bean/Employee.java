@@ -13,13 +13,22 @@ public class Employee {
     private String lastName;
     private Integer gender;
     private String email;
-    private String department;
+    private String  department;
+    private Integer salary;
+
+    public Integer getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Integer salary) {
+        this.salary = salary;
+    }
 
     public String getDepartment() {
         return department;
     }
 
-    public void setDepartment(String department) {
+    public void setDepartment(String  department) {
         this.department = department;
     }
 

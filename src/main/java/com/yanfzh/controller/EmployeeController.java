@@ -59,18 +59,21 @@ public class EmployeeController {
     public String addEmp(Employee employee){
         //来到员工列表页面
         System.out.println("保存的员工信息："+employee);
-        List<Department> departments=departmentMapper.allDept();
-        Integer num=Integer.valueOf(employee.getDepartment());
-        Department department=departments.get(num);
-//        System.out.println(departments);
-//        System.out.println("将设置的部门名: "+department.getDepartmentName());
-        employee.setDepartment(department.getDepartmentName());
         //保存员工
         employeeMapper.insertEmp(employee);
         // redirect: 表示重定向到一个地址  /代表当前项目路径
         // forward: 表示转发到一个地址
            return "redirect:/emps";
          }
+
+         //来到员工查询页面,@RequestParam 里的lastName跟前端的th:name定义的一样
+    @RequestMapping("/search")
+    public String searchEmps(@RequestParam String lastName,Model model){
+        List<Employee> employees=employeeMapper.searchEmps(lastName);
+       // System.out.println("查询出的员工是： "+employees);
+        model.addAttribute("emps",employees);
+        return "emp/list";
+    }
 
          //来到修改页面，查出当前员工，在页面回显
     @GetMapping("/emp/{id}")
@@ -101,6 +104,14 @@ public class EmployeeController {
         employeeMapper.deleteEmp(id);
         return "redirect:/emps";
     }
-
+    //员工评价
+    @RequestMapping("/empsEvaluate")
+    public String empsEvaluate(Model model){
+        //List<Employee> employees=employeeMapper.getAllEmployee();
+        //System.out.println(employees);
+       // model.addAttribute("emps",employees);
+        //thymeleaf默认会拼串， classpath:/template/xxxx.html
+        return "emp/evaluate";
+    }
 
 }

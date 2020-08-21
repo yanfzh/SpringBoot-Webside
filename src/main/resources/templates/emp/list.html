@@ -53,7 +53,24 @@
 				<div th:replace="commons/bar::#sidebar(activeUri='emps')"></div>
 
 				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-					<h2><a class="btn btn-sm btn-success" href="/emp" th:href="@{/emp}">员工添加</a></h2>
+					<form th:action="@{/search}" method="post">
+					<div class="input-group mb-3">
+<!--						这里的th:name定义好后无需通过上面的th:action传值，控制层可以直接getParameter调用-->
+						<input th:name="lastName" type="text" class="form-control" placeholder="请输入要搜索的员工名">
+						<div class="input-group-append">
+							<button class="btn btn-sm btn-secondary" type="submit">模糊查询</button>
+						</div>
+
+						<div class="offset-md-2">
+							<a class="btn btn-sm btn-success" href="/emp" th:href="@{/emp}">员工添加</a>
+						</div>
+						<div class="offset-md-1">
+						</div>
+					</div>
+			       </form>
+<!--					<h2>-->
+<!--						<a class="btn btn-sm btn-success" href="/emp" th:href="@{/emp}">员工添加</a>-->
+<!--					</h2>-->
 					<div class="table-responsive">
 						<table class="table table-striped table-sm">
 							<thead>
@@ -63,6 +80,7 @@
 									<th>邮箱</th>
 									<th>性别</th>
 									<th>部门</th>
+									<th>工资</th>
 									<th>生日</th>
 									<th>操作</th>
 								</tr>
@@ -75,6 +93,7 @@
 									<td th:text="${emp.email}"></td>
 									<td th:text="${emp.gender}==0?'女':'男'"></td>
 									<td th:text="${emp.department}"></td>
+									<td th:text="${emp.salary}"></td>
 									<td th:text="${#dates.format(emp.birth,'yyyy-MM-dd')}"></td>
 									<td >
 										<a class="btn btn-sm btn-primary" th:href="@{/emp/}+${emp.id}">编辑</a>
