@@ -105,7 +105,7 @@ public class EmployeeController {
         return "redirect:/emps";
     }
     //员工评价
-    @RequestMapping("/empsEvaluate")
+    @RequestMapping("/reports")
     public String empsEvaluate(Model model){
         //List<Employee> employees=employeeMapper.getAllEmployee();
         //System.out.println(employees);
