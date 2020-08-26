@@ -1,5 +1,7 @@
 package com.yanfzh.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.yanfzh.bean.Department;
 import com.yanfzh.bean.Employee;
 import com.yanfzh.mapper.DepartmentMapper;
@@ -32,16 +34,6 @@ public class EmployeeController {
     DepartmentMapper departmentMapper;
     @Autowired
     EmployeeMapper employeeMapper;
-    //所有员工列表
-   // @GetMapping("/emps")
-    @RequestMapping("/emps")
-    public String list(Model model){
-        List<Employee> employees=employeeMapper.getAllEmployee();
-        //System.out.println(employees);
-        model.addAttribute("emps",employees);
-        //thymeleaf默认会拼串， classpath:/template/xxxx.html
-        return "emp/list";
-    }
 
     //来到员工添加页面
     @RequestMapping("/emp")
@@ -112,6 +104,44 @@ public class EmployeeController {
        // model.addAttribute("emps",employees);
         //thymeleaf默认会拼串， classpath:/template/xxxx.html
         return "emp/evaluate";
+    }
+
+    /**
+     * @param model 携带数据返回
+     * @param pageSize 一页显示多少条-非必传值
+     * @param pageNum 显示当前页--必传值
+     * @return 前端页面
+     */
+//所有员工列表，分页查询数据
+    @GetMapping("/emps")
+    public String list(Model model,
+                             @RequestParam(required = false,defaultValue="1",value="pageNum")Integer pageNum,
+                             @RequestParam(defaultValue="11",value="pageSize")Integer pageSize){
+        //为了程序的严谨性，判断非空：
+        if(pageNum == null){
+            pageNum = 1;   //设置默认当前页
+        }
+        if(pageNum <= 0){
+            pageNum = 1;
+        }
+        if(pageSize == null){
+            pageSize = 11;    //设置默认每页显示的数据数
+        }
+        //System.out.println("当前页是："+pageNum+"显示条数是："+pageSize);
+        //1.引入分页插件,pageNum是第几页，pageSize是每页显示多少条,默认查询总数count
+        PageHelper.startPage(pageNum,pageSize);
+        //2.紧跟的查询就是一个分页查询-必须紧跟.后面的其他查询不会被分页，除非再次调用PageHelper.startPage
+        try {
+            List<Employee> employees=employeeMapper.getAllEmployee();
+           // System.out.println("分页数据："+employees);
+            //3.使用PageInfo包装查询后的结果,pageSize是连续显示的条数,结果list类型是Page<E>
+            PageInfo<Employee> pageInfo = new PageInfo<Employee>(employees,pageSize);
+            //4.使用model带回前端，前端获取：${pageInfo.list}
+            model.addAttribute("pageInfo",pageInfo);
+        }finally {
+            PageHelper.clearPage(); //清理 ThreadLocal 存储的分页参数,保证线程安全
+        }
+        return "emp/pageList";
     }
 
 }
