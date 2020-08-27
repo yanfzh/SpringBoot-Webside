@@ -65,11 +65,11 @@
 						<input type="hidden" name="id" th:if="${emp!=null}" th:value="${emp.id}">
 						<div class="form-group">
 							<label>姓名</label>
-							<input name="lastName" type="text" class="form-control" placeholder="zhangsan" th:value="${emp!=null}?${emp.lastName}">
+							<input name="lastName" type="text" class="form-control" placeholder="请输入姓名" th:value="${emp!=null}?${emp.lastName}">
 						</div>
 						<div class="form-group">
 							<label>邮箱</label>
-							<input name="email" type="email" class="form-control" placeholder="zhangsan@atguigu.com" th:value="${emp!=null}?${emp.email}">
+							<input name="email" type="email" class="form-control" placeholder="请输入邮箱地址" th:value="${emp!=null}?${emp.email}">
 						</div>
 						<div class="form-group">
 							<label>性别</label><br/>
@@ -92,11 +92,11 @@
 						</div>
 						<div class="form-group">
 							<label>工资</label>
-							<input name="salary" type="text" class="form-control" placeholder="5000" th:value="${emp!=null}?${emp.salary}">
+							<input name="salary" type="text" class="form-control" placeholder="请输入工资" th:value="${emp!=null}?${emp.salary}">
 						</div>
 						<div class="form-group">
 							<label>生日</label>
-							<input name="birth" type="text" class="form-control" placeholder="xxxx-xx-xx" th:value="${emp!=null}?${#dates.format(emp.birth, 'yyyy-MM-dd')}">
+							<input name="birth" type="text" class="form-control" placeholder="请输入生日日期，格式为xxxx-xx-xx" th:value="${emp!=null}?${#dates.format(emp.birth, 'yyyy-MM-dd')}">
 						</div>
 						<button type="submit" class="btn btn-primary" th:text="${emp!=null}?'修改':'添加'">添加</button>
 					</form>
