@@ -14,3 +14,4 @@
 [点这里查看](https://yanfzh.gitee.io/2020/08/24/SpringBoot%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/)
 
 以下为页面截图
+[](https://github.com/yanfzh/SpringBoot-Webside/blob/pics/pictures/1.jpg)
